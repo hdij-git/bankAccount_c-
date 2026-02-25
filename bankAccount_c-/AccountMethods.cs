@@ -9,11 +9,13 @@ namespace bankAccount_c_
         //Fields(Encapsulation: private)
         private string Owner;
         private double Balance;
+        private string AccountNumber;
 
         //constructor
-        public accountMethods(string owner, double inialBalance)
+        public accountMethods(string owner, string accountNumber, double inialBalance)
         {
             Owner = owner;
+            AccountNumber= accountNumber;
             Balance = inialBalance;
         }
         // deposit
@@ -34,6 +36,18 @@ namespace bankAccount_c_
                 Console.WriteLine($"{Owner} does not have enough balance.");
             }
 
+        }
+        public void transfer(accountMethods targetAccount, double amount)
+        {
+            if (amount > Balance)
+            {
+                Console.WriteLine("Transfer failed. Not enough balance.");
+                return;
+            }
+            this.Balance -= amount;
+            targetAccount.Balance += amount;
+
+            Console.WriteLine($"{amount} transferred from {this.AccountNumber} to {targetAccount.AccountNumber}");
         }
         public void ShowBalance()
         {
